@@ -3,11 +3,10 @@
 这是从 [[https://github.com/JAremko/docker-emacs][JAremko/docker-emacs: Dockerized Emacs (GUI)]] fork 来的 docker emacs，并进行了一些优化：
 
 - 基础 image 使用经过优化的 [[https://hub.docker.com/r/phusion/baseimage/][phusion/baseimage]]
-- 自动选择下载速度最快的 ubuntu 仓库镜像。
+- 自动选择下载速度最快的 ubuntu 仓库站点。
 
 
-我没有上传到 docker hub，因为国内的网络下载太慢。推荐自己 build，因为会自动选择下载速度最快的仓库镜像下载软件包，整个 build 过程在我服役三年的笔记本上只用了不到 5 分钟（第一次 build 会略慢，因为需要先下载基础 image）。
-
+我没有上传到 docker hub，因为国内的网络下载太慢。推荐自己 build，因为会自动选择下载速度最快的仓库站点下载软件包，整个 build 过程在我服役三年的笔记本上只用了不到 5 分钟（第一次 build 会略慢，因为需要先下载基础 image）。
 
 * How to build?
 
@@ -16,3 +15,16 @@
 docker build -t et2010/emacs .
 #+END_SRC
 
+
+** How to build my spacemacs image based upon this ?
+当你用上述命令建造了一个可用的 GUI emacs 镜像之后，可以用下列步骤基于这个镜像建造一个基础 spacemacs 镜像：
+
+1. 克隆或下载我的 [[https://github.com/et2010/spacemacs/tree/spacebase-cn][spacemacs fork]]
+2. 进入第 1 步所下载的 spacemacs 根目录下，切换到 spacebase-cn 分支
+3. 使用下列命令建造：
+
+#+BEGIN_SRC sh
+docker build -t et2010/spacebase-cn -f Dockerfile.emacs25 .
+#+END_SRC
+
+这样就建成了一个基于最新 develop 分支的，clean 的 spacemacs image。如果你想以它为基础进一步 build 你自己的 image，可以到 https://github.com/et2010/spacemacs-seed 看看。
