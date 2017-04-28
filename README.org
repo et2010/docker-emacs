@@ -1,0 +1,18 @@
+* What is this?
+
+这是从 [[https://github.com/JAremko/docker-emacs][JAremko/docker-emacs: Dockerized Emacs (GUI)]] fork 来的 docker emacs，并进行了一些优化：
+
+- 基础 image 使用经过优化的 [[https://hub.docker.com/r/phusion/baseimage/][phusion/baseimage]]
+- 自动选择下载速度最快的 ubuntu 仓库镜像。
+
+
+我没有上传到 docker hub，因为国内的网络下载太慢。推荐自己 build，因为会自动选择下载速度最快的仓库镜像下载软件包，整个 build 过程在我服役三年的笔记本上只用了不到 5 分钟（第一次 build 会略慢，因为需要先下载基础 image）。
+
+
+* How to build?
+
+使用下列命令 build 镜像：
+#+BEGIN_SRC sh
+docker build -t et2010/emacs .
+#+END_SRC
+
