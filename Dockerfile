@@ -10,10 +10,6 @@ ENV NO_AT_BRIDGE=1
 
 ENV DEBIAN_FRONTEND noninteractive
 
-# Select the fastest apt mirror
-RUN cp /etc/apt/sources.list /etc/apt/sources.list.old \
-    && curl -s http://mirrors.ubuntu.com/mirrors.txt|xargs -n1 -I {} sh -c 'echo `curl -r 0-102400 -s -w %{speed_download} -o /dev/null {}/ls-lR.gz` {}'|sort -g -r |head -1|awk '{ print $2  }'|tr -d '\n'|xargs -0 -n 1 -I {} sed -i 's@http://archive.ubuntu.com/ubuntu/@{}@' /etc/apt/sources.list
-
 RUN echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
     && apt-get update && apt-get install \
     dbus-x11 \
@@ -40,9 +36,6 @@ RUN apt-add-repository ppa:kelleyk/emacs \
     && apt-get update && apt-get install emacs25 \
 # Cleanup
     && rm -rf /tmp/* /var/tmp/* /var/lib/apt/lists/* /root/.cache/*
-
-# Revert to default apt repo
-RUN  mv -f /etc/apt/sources.list.old /etc/apt/sources.list
 
 ENV UNAME="emacser" \
     GNAME="emacs" \
