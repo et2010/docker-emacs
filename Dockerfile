@@ -36,7 +36,7 @@ RUN chown root /usr/local/sbin/asEnvUser \
 # ^^^^^^^ Those layers are shared ^^^^^^^
 
 # Emacs
-RUN apt-add-repository ppa:adrozdoff/emacs \
+RUN apt-add-repository ppa:kelleyk/emacs \
     && apt-get update && apt-get install emacs25 \
 # Cleanup
     && rm -rf /tmp/* /var/tmp/* /var/lib/apt/lists/* /root/.cache/*
